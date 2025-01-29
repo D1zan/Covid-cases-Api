@@ -3,16 +3,16 @@ import json
 
 #Make a class
 class Covid:
-    def __innit__(self, cases, todayDeaths, recovered, affectedCountries ):
+    def __innit__(self, country, cases, deaths, recovered ):
         self.cases = cases
-        self.todayDeaths = todayDeaths
+        self.deaths = deaths
         self.recovered = recovered
-        self.affectedCountries = affectedCountries
+        self.country = country
     def display_info(self):
+        print(f"Country: {self.country}")
         print(f"Cases Today: {self.cases}")
-        print(f"Deaths Total: {self.todayDeaths}")
+        print(f"Deaths Total: {self.deaths}")
         print(f"Recoveries: {self.recovered}")
-        print(f"Countries affected: {self.affectedCountries}")
 
 # outside of class##################
 #Getting the data, get request
@@ -31,7 +31,7 @@ def fetch_covid_info(country):
 def covid_info(covid_json):
     covid = Covid(
                     covid_json["cases"],
-                    covid_json["todayDeaths"],
+                    covid_json["deaths"],
                     covid_json["recovered"],
     )
     return covid()
@@ -45,27 +45,46 @@ while True:
     print("Brazil,\nUnited States, \nCanada,\nGhana,\nPortugal. ")
     country = input("Which country would you like to ask about?: ").lower().strip()
     covid_info = fetch_covid_info(country)
+    
     if not covid_info:
         continue
+    
+    # calculate the totals by iterating
+    cases_dictionary = covid_info["timeline"]["cases"] 
+    # We name the dictionary, set a variable to 0 which is reffering to the values in cases_dictionary. 
+    sumCases = 0
+    #The for loop grabs the variable sumCases and adds the values to itself, so the  user won't see a big list of numbers
+    for cases in cases_dictionary.values():
+        sumCases += cases
 
+    deaths_dictionary = covid_info["timeline"]["deaths"]
+    sumDeaths = 0 
+    for deaths in deaths_dictionary.values():
+        sumDeaths += deaths
+        
+    recoveries_dictionary = covid_info["timeline"]["recovered"]
+    sumRecoveries = 0
+    for recoveries in recoveries_dictionary.values():
+        sumRecoveries += recoveries 
 
     #print(country)
-    #print(fetch_covid_info(country))
+    # print(json.dumps(covid_info, indent=4))
 #Ask user to pick a question 
     print("\nPlease pick numbers 1-3")
-    questions = int(input("(1) How many cases of covid in total? \n(2) How many people have died from covid? \n(3) How many people in total have recovered? " ))
-
+    questions = input("(1) How many cases of covid in total? \n(2) How many people have died from covid? \n(3) How many people in total have recovered? " )
+    print("*** Numbers may be inaccurate")
+    
     if questions == "1":
-        print(fetch_covid_info(covid_info("cases")))
+        print(f"{sumCases} is the amount of cases in {country}")
+        # print(covid_info["timeline"]["cases"])
     elif questions == "2":
-        print(fetch_covid_info(covid_info("todayDeaths")))
+        print(f"{sumDeaths} is the amount of deaths in {country}")
     elif questions == "3": 
-        print(fetch_covid_info(covid_info("recovered")))
-    covid_obj = covid_info
-    print(f"{"covid_obj"}")
+        print(f"{sumRecoveries} is the amount of recoveries in {country}")
 
 
 # print the country + the answer to the picked question
     keep_going = input("Would you like to ask about another country? (y/n): ").lower().strip()
     if keep_going == "n":
         break
+    print("Thank you for your research")
