@@ -71,8 +71,9 @@ while True:
     # print(json.dumps(covid_info, indent=4))
 #Ask user to pick a question 
     print("\nPlease pick numbers 1-3")
+    print("*** Numbers may be inaccurate***")
     questions = input("(1) How many cases of covid in total? \n(2) How many people have died from covid? \n(3) How many people in total have recovered? " )
-    print("*** Numbers may be inaccurate")
+    
     
     if questions == "1":
         print(f"{sumCases} is the amount of cases in {country}")
@@ -81,7 +82,8 @@ while True:
         print(f"{sumDeaths} is the amount of deaths in {country}")
     elif questions == "3": 
         print(f"{sumRecoveries} is the amount of recoveries in {country}")
-
+    else:
+        print("Please enter numbers between 1-3, try again:")
 
 # print the country + the answer to the picked question
     keep_going = input("Would you like to ask about another country? (y/n): ").lower().strip()
