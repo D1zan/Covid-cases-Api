@@ -53,7 +53,7 @@ while True:
     cases_dictionary = covid_info["timeline"]["cases"] 
     # We name the dictionary, set a variable to 0 which is reffering to the values in cases_dictionary. 
     sumCases = 0
-    #The for loop grabs the variable sumCases and adds the values to itself, so the  user won't see a big list of numbers
+    #The for loop grabs the variable sumCases and adds the values to itself, so the  user won't see a big list of numbersk
     for cases in cases_dictionary.values():
         sumCases += cases
 
