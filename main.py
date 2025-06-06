@@ -1,6 +1,29 @@
 import requests 
 import json
 
+def color_text(code):
+    return "\33[{code}m".format(code=code)
+    
+
+def draw_ascii_art():
+    art = """
+              .
+           ,'/ \`.
+          |\/___\/|
+          \\'\   /`/
+           `.\ /,'
+              |
+              |
+             |=|
+        /\  ,|=|.  /\\
+    ,'`.  \/ |=| \/  ,'`.
+  ,'    `.|\ `-' /|,'    `.
+,'   .-._ \ `---' / _,-.   `.
+   ,'    `-`-._,-'-'    `.
+  '                       `
+
+    """
+    return art
 #Make a class
 class Covid:
     def __innit__(self, country, cases, deaths, recovered ):
@@ -38,11 +61,15 @@ def covid_info(covid_json):
 
 
 #User interaction
-
+    
 print("Hi, Welcome to Covid Information center")
 while True:
     print("These are the countries with the available information to you: ")
     print("Brazil,\nUnited States, \nCanada,\nGhana,\nPortugal. ")
+    colorTest = color_text(32) + draw_ascii_art()
+    print(colorTest)
+   
+    
     country = input("Which country would you like to ask about?: ").lower().strip()
     covid_info = fetch_covid_info(country)
     
@@ -72,16 +99,16 @@ while True:
 #Ask user to pick a question 
     print("\nPlease pick numbers 1-3")
     print("*** Numbers may be inaccurate***")
-    questions = input("(1) How many cases of covid in total? \n(2) How many people have died from covid? \n(3) How many people in total have recovered? " )
+    questions = input("(1) How many cases of covid in total? \n(2) How many people have died from covid? \n(3) How many people in total have recovered?  " )
     
     
     if questions == "1":
-        print(f"{sumCases} is the amount of cases in {country}")
+        print(f"\n{sumCases} is the amount of cases in {country}")
         # print(covid_info["timeline"]["cases"])
     elif questions == "2":
-        print(f"{sumDeaths} is the amount of deaths in {country}")
+        print(f"\n{sumDeaths} is the amount of deaths in {country}")
     elif questions == "3": 
-        print(f"{sumRecoveries} is the amount of recoveries in {country}")
+        print(f"\n{sumRecoveries} is the amount of recoveries in {country}")
     else:
         print("Please enter numbers between 1-3, try again:")
 
@@ -90,3 +117,6 @@ while True:
     if keep_going == "n":
         break
     print("Thank you for your research")
+    
+
+
