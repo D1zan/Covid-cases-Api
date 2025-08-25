@@ -4,7 +4,6 @@ import json
 def color_text(code):
     return "\33[{code}m".format(code=code)
     
-
 def draw_ascii_art():
     art = """
               .
@@ -24,6 +23,7 @@ def draw_ascii_art():
 
     """
     return art
+
 #Make a class
 class Covid:
     def __innit__(self, country, cases, deaths, recovered ):
@@ -61,13 +61,13 @@ def covid_info(covid_json):
 
 
 #User interaction
-    
+colorTest = color_text(32) + draw_ascii_art()
 print("Hi, Welcome to Covid Information center")
+print(colorTest)
 while True:
     print("These are the countries with the available information to you: ")
     print("Brazil,\nUnited States, \nCanada,\nGhana,\nPortugal. ")
-    colorTest = color_text(32) + draw_ascii_art()
-    print(colorTest)
+    
    
     
     country = input("Which country would you like to ask about?: ").lower().strip()
