@@ -4,6 +4,11 @@ import json
 def color_text(code):
     return "\33[{code}m".format(code=code)
     
+
+
+
+
+
 def draw_ascii_art():
     art = """
               .
@@ -61,10 +66,14 @@ def covid_info(covid_json):
 
 
 #User interaction
-colorTest = color_text(32) + draw_ascii_art()
+
+
+colorText = color_text(32) + draw_ascii_art()
+colorTest = color_text(32)
+print(colorText)
 print("Hi, Welcome to Covid Information center")
-print(colorTest)
 while True:
+    print(colorTest)
     print("These are the countries with the available information to you: ")
     print("Brazil,\nUnited States, \nCanada,\nGhana,\nPortugal. ")
     
